@@ -1,3 +1,89 @@
+Table Creation
+==============
+Create Table Disciple 
+(
+DiscipleID number(10) primary key,
+Disciple varchar(20),
+Address varchar(20),
+DateofBirth date,
+Country varchar(10)
+);
+
+Create Table Mentor
+(
+MentorID number(10) primary key,
+Mentor varchar(10)
+);
+
+Create Table Subjects
+(
+SubjectID varchar(20) primary key,
+Name varchar(10),
+Mentor number(10),
+Foreign Key(Mentor) references Mentor(MentorID)
+on delete cascade
+); 
+
+Create Table SubjectDetails
+(
+SubjectID varchar(10),
+DescipleID number(10),
+Semester varchar(10),
+Foreign Key (SubjectID) references Subjects(SubjectID),
+Foreign Key (DescipleID) references Disciple(DiscipleID)
+on delete cascade
+);
+
+Create Table Phone
+(
+Disciple number(10),
+PhoneNumber varchar(20),
+CGPA number(10,2),
+Foreign Key (Disciple) references Disciple(DiscipleID)
+on delete cascade
+);
+
+
+Part A
+=======
+insert all
+into Disciple values(4757,'Konika Pal','1399 Daffodil Drive',to_date('19941123','yyyymmdd'),'BD')
+into Disciple values(5008,'Masum Shah','1318 Tower Street',to_date('19920716','yyyymmdd'),'BD')
+into Disciple values(3002,'Mike Seaman','9539 Glenside Drive',to_date('19940330','yyyymmdd'),'USA')
+into Disciple values(4010,'Abdul Kalam','1212 Dhaka',to_date('19930101','yyyymmdd'),'NZ')
+select * from dual;
+
+insert all 
+into Mentor values(710088,'SI')
+into Mentor values(710089,'THT')
+into Mentor values(720045,'SNP')
+into Mentor values(720046,'CMKS')
+select * from dual;
+
+insert all 
+into Subjects values('CSE312' , 'DBMS', 710088)
+into Subjects values('CSE313' , 'Network',710089)
+into Subjects values('CSE123' , 'PPS',710088)
+into Subjects values('CSE215' , 'OOP',720045)
+select * from dual;
+
+insert all
+into Phone values(4757,'01725525252',2.56)
+into Phone values(5008,'01989563214',3.57)
+into Phone values(3002,'01658741256',3.80)
+into Phone values(4010,'01555454545',3.11)
+select * from dual;
+
+insert all 
+into SubjectDetails values('CSE312', 4757, 'Spring-17')
+into SubjectDetails values('CSE312', 3002, 'Fall-17')
+into SubjectDetails values('CSE313', 4010, 'Spring-17')
+into SubjectDetails values('CSE313', 3002, 'Fall-17')
+into SubjectDetails values('CSE215', 4010, 'Spring-17')
+into SubjectDetails values('CSE215', 3002, 'Spring-17')
+select * from dual;
+
+
 Part B
 ======
 1)
