@@ -1,0 +1,35 @@
+Part B
+======
+1)
+Select Disciple from Disciple
+where trunc(months_between(sysdate,dateofbirth)/12) > 15;
+
+2)
+Select distinct disciple from Disciple 
+INNER JOIN SubjectDetails 
+on SubjectDetails.DescipleID = Disciple.DiscipleID;
+
+3)
+Select Count(SubjectID), DESCIPLEID from SubjectDetails 
+group by DESCIPLEID;
+
+4)
+Select distinct Mentor.mentor from Mentor
+INNER JOIN Subjects
+on Subjects.Mentor = Mentor.MentorID
+INNER JOIN SubjectDetails
+on SubjectDetails.SubjectID = Subjects.SubjectID
+where Semester = 'Spring-17';
+
+5)
+Select Disciple.Disciple from Disciple 
+INNER JOIN Phone
+on Disciple.DiscipleID = Phone.Disciple 
+where Phone.PhoneNumber like '%7%';
+
+
+Part C
+=======
+Select Count(Country), Country from Disciple 
+group by Country 
+having Count(Country)> 3;
