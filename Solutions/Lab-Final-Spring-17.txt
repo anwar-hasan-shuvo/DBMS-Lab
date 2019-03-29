@@ -116,6 +116,7 @@ where Phone.PhoneNumber like '%7%';
 
 Part C
 =======
-Select Count(Country), Country from Disciple 
-group by Country 
-having Count(Country)> 3;
+SELECT DISTINCT Country, COUNT(Deciple)
+FROM disciple 
+GROUP BY Country
+HAVING COUNT(Deciple)>3;
