@@ -1,0 +1,105 @@
+Query for creating Tables
+==========================
+
+create Table Customer
+(
+Cus_No varchar(10) primary key,
+Cus_name varchar(20),
+Address varchar(20),
+Age number(10)
+);
+
+Create table Item
+(
+ItemNo varchar(10) primary key,
+ItemName varchar(20),
+Price number(10)
+);
+
+create table Orders
+(
+Ord_no varchar(10) primary key,
+Cus_No varchar(10),
+FOREIGN KEY(Cus_No) REFERENCES Customer(Cus_No)
+on delete cascade
+);
+
+create table OrderLine
+(
+OL_NO VARCHAR(10),
+ItemNo VARCHAR(10),
+Ord_No VARCHAR(10),
+FOREIGN KEY(ItemNo) REFERENCES Item(ItemNo),
+FOREIGN KEY(Ord_No) REFERENCES Orders(Ord_No)
+on delete cascade
+);
+
+Query for inserting values
+==========================
+
+insert all
+into Customer values('C1', 'Meena', 'Dhanmondi', 23)
+into Customer values('C2', 'Raju', 'Shyamoli', 45)
+into Customer values('C3', 'Mithu', 'Mirpur', 38)
+into Customer values('C4', 'Jim', 'Motijhil', 34)
+Select * from dual;
+
+insert all
+into Orders values('O1', 'C1')
+into Orders values('O2', 'C1')
+into Orders values('O3', 'C2')
+into Orders values('O4', 'C3')
+into Orders values('O5', 'C3')
+Select * from dual;
+
+insert all
+into Item values('I1', 'Ski Boots', 2500)
+into Item values('I2', 'Skis', 2000)
+into Item values('I3', 'Ski Poles',1200)
+into Item values('I4', 'Gloves', 500)
+Select * from dual;
+
+insert all
+into ORDERLINE values('OL1', 'I1', 'O1')
+into ORDERLINE values('OL1', 'I2', 'O2')
+into ORDERLINE values('OL2', 'I3', 'O2')
+into ORDERLINE values('OL1', 'I4', 'O3')
+into ORDERLINE values('OL1', 'I2', 'O4')
+into ORDERLINE values('OL2', 'I1', 'O4')
+into ORDERLINE values('OL1', 'I4', 'O4')
+Select * from dual;
+
+
+Query
+======
+
+2. Select Cus_no from Customer 
+where Cus_name like 'M%'
+
+3. select itemName from Item where price=(select min(price) from Item);
+
+5. Select Count(itemNo), OL_No from OrderLine
+group by OL_No;
+
+6. Select Cus_Name from Customer order by address;
+
+7. Select Cus_name from Customer 
+INNER JOIN orders
+on Customer.Cus_No = orders.Cus_No
+INNER JOIN OrderLine
+on orders.Ord_no = Orderline.Ord_no
+where OrderLine.itemNo = 'I1' and OrderLine.itemNo = 'I2';
+
+
+8. Select ItemName from Item 
+where price > (Select avg(price) from Item);
+
+
+9. Select Customer.Cus_no from Customer
+INNER JOIN orders
+on Customer.Cus_No = orders.Cus_No
+INNER JOIN OrderLine
+on orders.Ord_no = Orderline.Ord_no
+INNER JOIN Item
+on Item.ItemNo = OrderLine.itemNo
+where Item.price = (select max(price) from Item);
